@@ -31,4 +31,4 @@ setInterval(function () {
       var patches = diff(tree, newTree);
       rootNode = patch(rootNode, patches);
       tree = newTree;
-}, 1000);
+}, 1000); 
