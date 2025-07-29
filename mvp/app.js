@@ -13,6 +13,24 @@
 //   }
 // });
 
+// const app = createApp({
+//   el: '#app',
+//   data: {
+//     message: 'Salom, Dunyo!'
+//   },
+//   template: function(data, h) {
+//     return h('div', {}, [
+//       h('h1', {}, [data.message]),
+//       h('input', {
+//         type: 'text',
+//         oninput: `app.data.message = this.value`
+//       }, []),
+//       h('div', {}, [])
+//     ]);
+//   }
+// });
+
+// app.js
 const app = createApp({
   el: '#app',
   data: {
@@ -24,8 +42,7 @@ const app = createApp({
       h('input', {
         type: 'text',
         oninput: `app.data.message = this.value`
-      }, []),
-      h('div', {}, [])
+      }, [])
     ]);
   }
 });

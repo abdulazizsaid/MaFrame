@@ -38,7 +38,8 @@ class MyFramework {
   // Virtual DOM'ni haqiqiy DOM'ga aylantirish
   renderToDOM(vnode) {
     if (typeof vnode === 'string') {
-      return document.createTextNode(vnode);
+      const textNode = document.createTextNode(vnode);
+      return textNode;
     }
 
     const element = document.createElement(vnode.tag);
@@ -55,7 +56,7 @@ class MyFramework {
       const childElement = this.renderToDOM(child);
       element.appendChild(childElement);
       if (typeof child !== 'string') {
-        child.dom = childElement; // dom xususiyatini o'rnatish
+        child.dom = childElement; // dom xususiyatini faqat elementlar uchun o'rnatish
       }
     });
 
@@ -68,16 +69,16 @@ class MyFramework {
     // Agar eski tugun yo'q bo'lsa, yangisini yaratamiz
     if (!oldVnode) {
       const newElement = this.renderToDOM(newVnode);
-      newVnode.dom = newElement;
+      if (typeof newVnode !== 'string') {
+        newVnode.dom = newElement;
+      }
       return newElement;
     }
 
     // Matn tugunlarini solishtirish
     if (typeof oldVnode === 'string' || typeof newVnode === 'string') {
       if (oldVnode !== newVnode) {
-        const newElement = this.renderToDOM(newVnode);
-        newVnode.dom = newElement;
-        return newElement;
+        return this.renderToDOM(newVnode);
       }
       return oldVnode.dom || document.createTextNode(oldVnode);
     }
@@ -129,7 +130,7 @@ class MyFramework {
 
       if (i < oldChildren.length && i < newChildren.length) {
         const childElement = this.patch(oldChild, newChild);
-        if (childElement !== oldChild?.dom) {
+        if (childElement !== (oldChild?.dom || oldChild)) {
           if (element.childNodes[i]) {
             element.replaceChild(childElement, element.childNodes[i]);
           } else {
@@ -138,7 +139,9 @@ class MyFramework {
         }
       } else if (i < newChildren.length) {
         const childElement = this.renderToDOM(newChild);
-        newChild.dom = childElement;
+        if (typeof newChild !== 'string') {
+          newChild.dom = childElement;
+        }
         element.appendChild(childElement);
       } else if (i < oldChildren.length && oldChild?.dom) {
         element.removeChild(oldChild.dom);
