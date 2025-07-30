@@ -42,7 +42,25 @@ const app = createApp({
       h('input', {
         type: 'text',
         oninput: `app.data.message = this.value`
-      }, [])
+      }, []),
+      h('p',{},['sdf'])
+    ]);
+  }
+});
+
+const app2 = createApp({
+  el: '#app2',
+  data: {
+    message: 'Salom, Dunyo!'
+  },
+  template: function(data, h) {
+    return h('div', {}, [
+      h('h1', {}, [data.message]),
+      h('input', {
+        type: 'text',
+        oninput: `app.data.message = this.value`
+      }, []),
+      h('p',{},['sdf'])
     ]);
   }
 });
