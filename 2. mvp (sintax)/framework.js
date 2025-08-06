@@ -36,15 +36,61 @@ class MyFramework {
   }
 
   // String template'ni parse qilish
+  // parseTemplate(template, data) {
+  //   const parser = new DOMParser();
+  //   const doc = parser.parseFromString(`<template>${template}</template>`, 'text/html');
+  //   const root = doc.querySelector('template').content.firstChild;
+
+  //   const parseNode = (node) => {
+  //     if (node.nodeType === Node.TEXT_NODE) {
+  //       let text = node.textContent;
+  //       // {{ variable }} ni almashtirish
+  //       text = text.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, key) => {
+  //         return data[key] || '';
+  //       });
+  //       return text;
+  //     }
+
+  //     if (node.nodeType === Node.ELEMENT_NODE) {
+  //       const tag = node.tagName.toLowerCase();
+  //       const props = {};
+  //       const children = [];
+
+  //       // Atributlarni o'qish
+  //       Array.from(node.attributes).forEach(attr => {
+  //         if (attr.name === 'v-model') {
+  //           props.oninput = `app.data.${attr.value} = this.value`;
+  //           props.value = data[attr.value] || '';
+  //         } else {
+  //           props[attr.name] = attr.value;
+  //         }
+  //       });
+
+  //       // Bolalarni parse qilish
+  //       Array.from(node.childNodes).forEach(child => {
+  //         const parsedChild = parseNode(child);
+  //         if (parsedChild) {
+  //           children.push(parsedChild);
+  //         }
+  //       });
+
+  //       return this.createElement(tag, props, children);
+  //     }
+
+  //     return null;
+  //   };
+
+  //   return parseNode(root);
+  // }
+
   parseTemplate(template, data) {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(`<template>${template}</template>`, 'text/html');
-    const root = doc.querySelector('template').content.firstChild;
+    const doc = parser.parseFromString(`<body>${template}</body>`, 'text/html');
+    const root = doc.body.firstElementChild;
 
     const parseNode = (node) => {
       if (node.nodeType === Node.TEXT_NODE) {
         let text = node.textContent;
-        // {{ variable }} ni almashtirish
         text = text.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, key) => {
           return data[key] || '';
         });
@@ -56,7 +102,6 @@ class MyFramework {
         const props = {};
         const children = [];
 
-        // Atributlarni o'qish
         Array.from(node.attributes).forEach(attr => {
           if (attr.name === 'v-model') {
             props.oninput = `app.data.${attr.value} = this.value`;
@@ -66,10 +111,9 @@ class MyFramework {
           }
         });
 
-        // Bolalarni parse qilish
         Array.from(node.childNodes).forEach(child => {
           const parsedChild = parseNode(child);
-          if (parsedChild) {
+          if (parsedChild !== null) {
             children.push(parsedChild);
           }
         });
@@ -85,9 +129,14 @@ class MyFramework {
 
   // Virtual DOM'ni haqiqiy DOM'ga aylantirish
   renderToDOM(vnode) {
+    console.log(vnode);
+
     if (typeof vnode === 'string') {
+      console.log(vnode);
       return document.createTextNode(vnode);
     }
+    console.log(vnode);
+
 
     const element = document.createElement(vnode.tag);
     Object.keys(vnode.props).forEach(key => {

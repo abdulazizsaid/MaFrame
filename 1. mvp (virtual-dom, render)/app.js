@@ -48,8 +48,8 @@
 //   }
 // });
 
-const app2 = createApp({
-  el: '#app2',
+const app = createApp({
+  el: '#app',
   data: {
     message: 'Salom, Dunyo!'
   },
