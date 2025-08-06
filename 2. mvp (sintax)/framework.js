@@ -240,17 +240,31 @@ class MyFramework {
 
     return element;
   }
-
   render() {
-    // Template'dan Virtual DOM daraxtini yaratish
     const templateString = this.template(this.data);
     const newVnode = this.parseTemplate(templateString, this.data);
-    // Eski va yangi Virtual DOM'ni solishtirib, DOM'ni yangilash
-    this.el.innerHTML = ''; // Tozalash
-    const dom = this.patch(this.vdom, newVnode);
-    this.el.appendChild(dom);
-    this.vdom = newVnode; // Yangi Virtual DOM'ni saqlash
+
+    if (!this.vdom) {
+      // Birinchi marta render
+      const dom = this.renderToDOM(newVnode);
+      this.el.appendChild(dom);
+    } else {
+      // Patch qilish: eski va yangi virtual domni solishtirish
+      this.patch(this.vdom, newVnode);
+    }
+
+    this.vdom = newVnode; // yangilash
   }
+  // render() {
+  //   // Template'dan Virtual DOM daraxtini yaratish
+  //   const templateString = this.template(this.data);
+  //   const newVnode = this.parseTemplate(templateString, this.data);
+  //   // Eski va yangi Virtual DOM'ni solishtirib, DOM'ni yangilash
+  //   this.el.innerHTML = ''; // Tozalash
+  //   const dom = this.patch(this.vdom, newVnode);
+  //   this.el.appendChild(dom);
+  //   this.vdom = newVnode; // Yangi Virtual DOM'ni saqlash
+  // }
 }
 
 // Frameworkni ishga tushirish uchun funksiya
