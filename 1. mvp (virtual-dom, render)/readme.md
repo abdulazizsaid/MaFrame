@@ -24,7 +24,7 @@ HTML faylini sozlash:
 </body>
 </html>
 
-
+```js
 app.js misoli:
 const app = createApp({
   el: '#app',
@@ -42,7 +42,7 @@ const app = createApp({
     ]);
   }
 });
-
+```
 
 Ishga tushirish:
 
@@ -79,15 +79,15 @@ this.vdom: Joriy Virtual DOM daraxti (boshida null).
 
 
 Qaytarish: Hech narsa qaytarmaydi, init metodini chaqiradi.
-
+```js
 init()
-
+```
 Tavsif: Frameworkni ishga tushirish uchun ishlatiladi. Ma'lumotlarni reaktiv qiladi va dastlabki rendering’ni amalga oshiradi.
 Kiruvchi o‘zgaruvchilar: Yo‘q.
 Qaytarish: Hech narsa qaytarmaydi.
-
+```js
 makeReactive(obj)
-
+```
 Tavsif: Ma'lumotlar ob’ektini reaktiv qiladi, ya’ni har bir xususiyat o‘zgarganda render metodi chaqiriladi.
 Kiruvchi o‘zgaruvchilar:
 obj (Object): Reaktiv qilinadigan ma'lumotlar ob’ekti (masalan, { message: 'Salom' }).
@@ -99,9 +99,9 @@ Setter’da ma'lumot o‘zgarganda render chaqiriladi.
 
 
 Qaytarish: Hech narsa qaytarmaydi.
-
+```js
 createElement(tag, props = {}, children = [])
-
+```
 Tavsif: Virtual DOM tugunini yaratadi (React’dagi React.createElementga o‘xshaydi).
 Kiruvchi o‘zgaruvchilar:
 tag (String): HTML tegi (masalan, 'div', 'h1').
@@ -110,9 +110,9 @@ children (Array, ixtiyoriy): Bolalar tugunlari (matn yoki boshqa Virtual DOM tug
 
 
 Qaytarish: Virtual DOM ob’ekti { tag, props, children } shaklida.
-
+```js
 renderToDOM(vnode)
-
+```
 Tavsif: Virtual DOM tugunini haqiqiy DOM elementiga aylantiradi.
 Kiruvchi o‘zgaruvchilar:
 vnode (Object | String): Virtual DOM tuguni yoki matn tuguni.
@@ -144,9 +144,9 @@ Bolalar rekursiv ravishda solishtiriladi va yangilanadi (replaceChild, appendChi
 
 
 Qaytarish: Yangilangan DOM elementi.
-
+```js
 render()
-
+```
 Tavsif: Ilovani qayta render qiladi, Virtual DOM daraxtini yangilaydi va DOM’ga qo‘llaydi.
 Kiruvchi o‘zgaruvchilar: Yo‘q.
 Ichki logika:
@@ -157,9 +157,9 @@ vdomni yangi daraxt bilan yangilaydi.
 
 
 Qaytarish: Hech narsa qaytarmaydi.
-
+```js
 createApp(options)
-
+```
 Tavsif: Frameworkni ishga tushirish uchun asosiy funksiya.
 Kiruvchi o‘zgaruvchilar:
 options (Object): el, data, va template xususiyatlarini o‘z ichiga oladi.
@@ -174,6 +174,7 @@ el: DOM’dagi asosiy elementni ko‘rsatadi.
 data: Reaktiv ma'lumotlar ob’ekti.
 template: Virtual DOM daraxtini qaytaruvchi funksiya, h (ya’ni createElement) va datani qabul qiladi.
 
+```js
 Misol:
 const app = createApp({
   el: '#app',
@@ -191,6 +192,7 @@ const app = createApp({
     ]);
   }
 });
+```
 
 Kelajakdagi kengaytmalar
 
