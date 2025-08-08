@@ -8,3 +8,15 @@ Object.keys(vnode.props).forEach(key => {
         element.setAttribute(key, vnode.props[key]);
     }
 });
+
+
+patch(oldVnode, newVnode) {
+    // Agar eski tugun yo'q bo'lsa, yangisini yaratamiz
+    if (!oldVnode) {
+      const newElement = this.renderToDOM(newVnode);
+      if (typeof newVnode !== 'string') {
+        newVnode.dom = newElement;
+      }
+      return newElement;
+    }
+}
