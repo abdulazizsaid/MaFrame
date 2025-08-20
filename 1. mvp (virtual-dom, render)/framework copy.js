@@ -13,6 +13,11 @@ class MyFramework {
   
 
   makeReactive(obj) {
+     const self = this
+
+     Object.keys(obj).forEach(key => {
+      let value = obj[key];
+     })
 
   }
 
