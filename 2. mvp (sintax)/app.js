@@ -8,6 +8,9 @@ const app = createApp({
       <div>
         <h1>{{ message }}</h1>
         <input type="text" v-model="message">
+        <div style="color:red;">
+          <p>salom</p>
+        </div>
       </div>
     `;
   }
