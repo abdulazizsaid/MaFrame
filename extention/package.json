@@ -1,0 +1,50 @@
+{
+  "name": "myframework-vscode",
+  "displayName": "MyFramework Syntax Support",
+  "description": "Syntax highlighting and autocompletion for MyFramework inside HTML & JS files.",
+  "version": "0.0.1",
+  "publisher": "abdulaziz",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Programming Languages"],
+  "activationEvents": ["onLanguage:javascript", "onLanguage:html"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "grammars": [
+      {
+        "language": "html",
+        "scopeName": "text.html.myframework",
+        "path": "./syntaxes/myframework.tmLanguage.json",
+        "injectTo": ["text.html.basic"]
+      },
+      {
+        "language": "javascript",
+        "scopeName": "source.js.myframework",
+        "path": "./syntaxes/myframework.tmLanguage.json",
+        "injectTo": ["source.js"]
+      }
+    ],
+    "snippets": [
+      {
+        "language": "html",
+        "path": "./snippets/myframework.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./snippets/myframework.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.3.0",
+    "vsce": "^1.99.0"
+  }
+}
