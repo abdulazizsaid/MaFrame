@@ -1,50 +1,61 @@
 {
-  "name": "myframework-vscode",
-  "displayName": "MyFramework Syntax Support",
-  "description": "Syntax highlighting and autocompletion for MyFramework inside HTML & JS files.",
+  "name": "extention",
+  "displayName": "extension",
+  "description": "",
   "version": "0.0.1",
-  "publisher": "abdulaziz",
+  "license": "MIT",
+  "publisher": "abdulazizsaidov",
   "engines": {
-    "vscode": "^1.90.0"
+    "vscode": "^1.104.0"
   },
-  "categories": ["Programming Languages"],
-  "activationEvents": ["onLanguage:javascript", "onLanguage:html"],
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:html"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
-    "grammars": [
+    "languages": [
       {
-        "language": "html",
-        "scopeName": "text.html.myframework",
-        "path": "./syntaxes/myframework.tmLanguage.json",
-        "injectTo": ["text.html.basic"]
-      },
-      {
-        "language": "javascript",
-        "scopeName": "source.js.myframework",
-        "path": "./syntaxes/myframework.tmLanguage.json",
-        "injectTo": ["source.js"]
+        "id": "myframework-js",
+        "aliases": ["MyFramework JS", "myframework-js"],
+        "extensions": [".js"], 
+        "configuration": "./language-configuration.json"
       }
     ],
-    "snippets": [
+    "grammars": [
       {
-        "language": "html",
-        "path": "./snippets/myframework.json"
-      },
-      {
-        "language": "javascript",
-        "path": "./snippets/myframework.json"
+        "language": "myframework-js",
+        "scopeName": "source.myframework-js",
+        "path": "./syntaxes/myframework.tmLanguage.json"  
       }
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "package": "vsce package"
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.90.0",
-    "typescript": "^5.3.0",
-    "vsce": "^1.99.0"
+    "@types/vscode": "^1.104.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.36.0",
+    "typescript": "^5.9.3",
+    "ts-loader": "^9.5.4",
+    "webpack": "^5.102.0",
+    "webpack-cli": "^6.0.1",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
   }
 }
